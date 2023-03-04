@@ -1,0 +1,17 @@
+\begin{table}%[!t]
+	\renewcommand{\arraystretch}{1.3}
+	\caption{Vor- und Nachteile unterschiedlicher Lokalisierungstechniken}
+	\label{tab:technik}
+%	\centering
+	\begin{tabularx}{\textwidth}{|_l|^X|^X|}
+		\hline\rowstyle{\bfseries}
+		Technik & Vorteile & Nachteile \\\hline
+	RSSI & Einfach zu implementieren, kosteneffizient, kann mit verschiedenen Technologien verwendet werden & Anfällig gegenüber Mulitpath Fading und Umgebungsrauschen, schlechte Genauigkeit, benötigt evtl. Fingerprinting\\\hline
+	CSI & Besseres Verhalten bei Multipathing und Indoorrauschen als RSSI & Schlechte Verfügbarkeit \\\hline
+	AoA	& Hohe Lokalisierungsgenauigkeit, benötigt kein Fingerprinting & Benötigt evtl. direktionale Antennen und komplexe Hardware, benötigt komplexe Algorithmen und die Performance verschlechtert sich auf die Distanz \\\hline
+	ToF & Hohe Lokalisierungsgenauigkeit, benötigt kein Fingerprinting & Benötigt Zeitsynchronisation zwischen Empfängern und Sendern, evtl Zeitstempel und mehrere Antennen bei Sendern und Empfängern. Line of Sight zwingend für gute Performance \\\hline
+	TDoA & Benötigt kein Fingerprinting und keine Zeitsynchronisation zwischen Ziel und Reference Nodes & Benötigt Clocksynchronisation zwischen den Reference Nodes, evtl Zeitstempel, grössere Bandbreite benötigt\\\hline
+	RToF & Hohe Lokalisierungsgenauigkeit, benötigt kein Fingerprinting & Benötigt Clocksynchronisierung, Processing Delay kann die Performance auf kurze Distanzen beeinflussen\\\hline
+	Fingerprinting & Einfach in der Anwendung & Neuer Fingerprint ist benötigt, sobald sich die Umgebung auch wenn sich das Umfeld nur geringfügig verändert\\\hline
+	\end{tabularx}
+\end{table}

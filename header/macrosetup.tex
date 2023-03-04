@@ -1,0 +1,45 @@
+%% Custom commands
+%% ===============
+
+%% Special characters for number sets, e.g. real or complex numbers.
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\X}{\mathbb{X}}
+\newcommand{\F}{\mathcal{F}}
+
+%% Fixed/scaling delimiter examples (see mathtools documentation)
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}
+
+%% Use the alternative epsilon per default and define the old one as \oldepsilon
+\let\oldepsilon\epsilon
+\renewcommand{\epsilon}{\ensuremath\varepsilon}
+
+%% Also set the alternate phi as default.
+\let\oldphi\phi
+\renewcommand{\phi}{\ensuremath{\varphi}}
+\newcommand{\mmod}[1]{\quad\left(\text{mod} #1\right)}
+\newcommand{\note}[1]{}
+\newcommand{\pos}[1]{\ensuremath{P_{#1}(x_{#1},y_{#1},z_{#1})}}
+\newcolumntype{_}{>{\global\let\currentrowstyle\relax}}
+\newcolumntype{^}{>{\currentrowstyle}}
+\newcommand{\rowstyle}[1]{\gdef\currentrowstyle{#1}%
+  #1\ignorespaces
+}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+\newcommand{\td}{{\color{red}TODO}}
+\newcommand{\cref}[1]{\textit{\ref{#1} \titleref{#1}}}
+%\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+
+\DeclareMathOperator{\rang}{rang}
+\DeclareMathOperator{\Kern}{kern}
+%\DeclareMathOperator{\dim}{dim}
+
+
+
+%\DeclarePairedDelimiterX{\norm}[1]{\lVert}{\rVert}{#1}

@@ -1,0 +1,23 @@
+\chapter{Conclusion}
+The results of the thesis are summarized here. Additionally, further steps to improve the system are mentioned. 
+
+\subsubsection{Conclusion}
+
+This thesis implements an autonomous authentication system for parking areas with several lots. The vehicle can be located within a few centimeters and therefore the right parking lot can be determined. The communication occurs over Basic Transport Protocol, which is a part of the European Intelligent Transport System. This wireless authentication system can also be used for private garage entries or restricted parking area.
+
+\subsubsection{Existing Challenges}
+
+In parking garages, this system will not work because there is no GNSS signal. To locate a vehicle in such areas, a separate positioning system would be needed. A solution to this problem is to use the signal strength of the RSU and OBU. The used program on the MK5, ETSA (\ref{sec:BTP_over_UDP}), has some limitations. With security active, the GeoNetworking address must be changed regularly. But there is no synchronisation mechanism between the changes in the Network layer (done by ETSA) and the changes in application. This means, if the address changes in the Network layer, the application will not be informed about this change. Since the BTP does not share the information of the signal strength and the address changes, this problems can not be solved with the given circumstances.
+
+Another problem is that the charging station can only charge one vehicle at the time. If it is necessary to charge multiple vehicles simultaneously, the firmware of the charging station has to be extended.
+
+This system does not really know whether a parking lot is occupied or not. A car without a V2X communication equipment can park on a lot and the system would not recognize it. To solve this problem additional sensors would be needed.
+
+\subsubsection{Further Steps}
+
+To unlock the full potential of the MK5, the SDK from Cohda Wireless is needed. The SDK provides access to the full communication stack of MK5, therefore address changes and signal strength can be extracted.
+
+The problem that only one vehicle can be charged at the same time, can be solved without much effort. But for this thesis, it was not necessary, because there is only one electric vehicle, which has to be charged at the HSR.
+
+
+\clearpage

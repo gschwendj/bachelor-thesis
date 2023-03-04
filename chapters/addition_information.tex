@@ -1,0 +1,296 @@
+\chapter{additional information on the operation of the charging station}\label{sec:howto}
+
+This appendix provides all the information to run the the system successfully.
+
+\section{Charging Station}
+
+To connect all devices at the charging station, a router is used. All devices of the charging station have fixed IP addresses as shown below:
+
+\begin{tabular}{|c|c|c|c|c|}
+	\hline 
+	\textbf{Device} 	  & \textbf{MAC}               & \textbf{IP}        	& \textbf{username} & \textbf{password} \\ 
+	\hline 
+	\hline
+	\texttt{Router} 	  & \texttt{0C:80:63:AC:ED:4C} & \texttt{192.168.1.1\;} & \texttt{admin}    & \texttt{admin}\\ 
+	\hline 
+	\texttt{MK5 RSU} 	  & \texttt{04:E5:48:10:96:70} & \texttt{192.168.1.82}  & \texttt{user}     & \texttt{user}\\ 
+	\hline 
+	\texttt{Raspberry Pi} & \texttt{B8:27:EB:9F:66:9E} & \texttt{192.168.1.85}  & \texttt{pi}       & \texttt{GinTonic+2019}\\
+	\hline
+	\texttt{P30 c-series} & \texttt{00:60:B5:3A:DF:D6} & \texttt{192.168.1.89}  &       			& \\
+	\hline
+\end{tabular} 
+
+
+The Raspberry Pi and the MK5 can be controlled over SSH. For more information about the KeContact P30 c-series consult \cite{KEBAP30_UDP_Programmers_Guide}.
+
+\subsection{MK5 RSU}
+
+To run the system, the ETSA \ref{ch:system} on the RSU must be started. This is done with the command: 
+\begin{lstlisting}
+	etsa -c /opt/cohda/test/receiver_ets.conf
+\end{lstlisting} 
+
+To run the program properly, the MK5 needs an valid GNSS fix first. 
+
+With the command
+\begin{lstlisting}
+	nano /opt/cohda/test/receiver_ets.conf
+\end{lstlisting}
+the configuration file of the ETSA can be adjusted. The GeoNetworking address can be modified under
+\begin{lstlisting}	
+	# ******************************************
+	# * GN CONFIGURATION SUB GROUP
+	# ******************************************
+	
+	# Local GN_ADDR (04:e5:48 == Cohda Wireless)
+	ItsGnLocalAddr = 3C:e4:04:e5:48:00:00:11	
+\end{lstlisting}
+If the GeoNetworking has to be changed it is important to change only the least 6 bytes. The first two bytes are reserved for the country code and to identify the ITS Type. More information about the Geonetworking address format can be found in \cite{ETSI_EN_302_636-4-1}.
+
+The Cohda UDP section configures the UDP setting. ItsUdpBtpIfHostName is the IP address of the Raspberry Pi. 
+\begin{lstlisting}
+	# ******************************************
+	# * Cohda: UDP
+	# ******************************************
+	
+	ItsUdpBtpIfHostName     = 192.168.1.85            
+	
+	ItsUdpBtpIfIndPort      = 4400;  1,65535          
+	ItsUdpBtpIfReqPort      = 4401;  1,65535         	
+\end{lstlisting}
+
+\section{Electric Vehicle}
+
+Similar to the charging station, the electric vehicle uses fixed IP addresses.
+
+\begin{tabular}{|c|c|c|c|c|}
+	\hline 
+	\textbf{Device} 		& \textbf{MAC} 					& \textbf{IP} 			& \textbf{username} & \textbf{password} \\ 
+	\hline 
+	\hline
+	\texttt{MK5 OBU} 		& \texttt{04:e5:48:20:3f:58}	& \texttt{192.168.1.83} & \texttt{user} 	& \texttt{user}\\ 
+	\hline 
+	\texttt{Raspberry Pi} 	& \texttt{B8:27:EB:7F:AE:E9}	& \texttt{192.168.1.86} & \texttt{pi} 		& \texttt{GinTonic+2019}\\
+	\hline
+\end{tabular} 
+
+\subsection{MK5 OBU}
+
+To run the system, the ETSA \ref{ch:system} on the RSU must be started. This is done with the command: 
+\begin{lstlisting}
+	etsa -c /opt/cohda/test/receiver_ets.conf
+\end{lstlisting} 
+
+To run the program properly, the MK5 needs a valid GNSS fix first. 
+
+With the command
+\begin{lstlisting}
+	nano /opt/cohda/test/receiver_ets.conf
+\end{lstlisting}
+the configuration file of the ETSA can be adjusted. The GeoNetworking address can be modified under
+\begin{lstlisting}	
+	# ******************************************
+	# * GN CONFIGURATION SUB GROUP
+	# ******************************************
+	
+	# Local GN_ADDR (04:e5:48 == Cohda Wireless)
+	ItsGnLocalAddr = 3C:e4:04:e5:48:00:00:10	
+\end{lstlisting}
+If the GeoNetworking want to be changed it is important to change only the least 6 bytes. The first two bytes are reserved for a country code and to identify the ITS Type. More information about the Geonetworking address format can be found in \cite{ETSI_EN_302_636-4-1}.
+
+The Cohda UDP section configured the UDP setting. ItsUdpBtpIfHostName is the IP address of the Raspberry Pi. 
+\begin{lstlisting}
+	# ******************************************
+	# * Cohda: UDP
+	# ******************************************
+	
+	ItsUdpBtpIfHostName     = 192.168.1.86            
+	
+	ItsUdpBtpIfIndPort      = 4400;  1,65535          
+	ItsUdpBtpIfReqPort      = 4401;  1,65535         	
+\end{lstlisting}
+
+\subsection{Raspberry Pi}
+
+On the Raspberry Pi the stream-to-stream server has to be started. Otherwise the RTK data will not be sent to the GNSS board. This is done with the following command.
+
+\begin{lstlisting}
+	str2str -in tcpcli://icomcar.hsr.ch:2102 -out serial://ttyAMA0:38400:8:n:1:off
+\end{lstlisting}
+
+\section{RTK Base Station}
+
+The RTK base station is located in the room 2.101 and is powered by an Raspberry Pi. The Raspberry Pi is a stream-to-stream server and has a fixed IP address in the HSR network. Alternative it can be reached with the DNS address:
+
+\begin{tabular}{|c|c|c|c|c|}
+	\hline 
+	\textbf{MAC} 					& \textbf{IP} 		& \textbf{DNS} 	& \textbf{username} & \textbf{password} \\ 
+	\hline 
+	\hline
+	\texttt{B8:27:EB:73:FE:FB}	& \texttt{152.96.24.17} & \texttt{rtk-ntrip-server.hsr.ch} &\texttt{pi} 	& \texttt{GinTonic+2019}\\ 
+	\hline 
+\end{tabular}
+
+Inside of the HSR LAN network it is possible to connect with the NTRIP caster (Raspberry Pi) directly. The credentials of the NTRIP caster are the following:
+
+\begin{tabular}{|c|c|c|c|c|}
+	\hline 
+	\textbf{NTRIP Caster Host} 		 & \textbf{Port} 		& \textbf{Mountpoint} 	& \textbf{User ID} & \textbf{password} \\ 
+	\hline 
+	\hline
+	\texttt{rtk-ntrip-server.hsr.ch} & \texttt{2101} & \texttt{STALL} &\texttt{HSR} 	& \texttt{GinTonic+2019}\\ 
+	\hline 
+\end{tabular}
+
+To make it possible to access the RTK correction data outside of the HSR network a TCP server was implemented on the server for the Wireless Research Vehicle. The TCP server reads the data from the NTRIP caster and redirect them via TCP to the internet. To access the TCP server outside the HSR network following data is needed.
+
+\begin{tabular}{|c|c|}
+	\hline 
+	\textbf{DNS address}	& \textbf{Port}  \\ 
+	\hline 
+	\hline
+	\texttt{icomcar.hsr.ch}	& \texttt{2102} \\ 
+	\hline 
+\end{tabular}
+
+\subsection{How to change the configuration}
+
+The stream begins automatic after the Raspberry Pi starts up. If any changes has to be done, the server should be stopped first.
+
+To connect to the Raspberry Pi in the HSR network the following command can be used.
+
+\begin{lstlisting}
+ssh pi@RTK-NTRIP-Server.hsr.ch
+\end{lstlisting}
+
+In the 'boot' folder of the Raspberry Pi there are files, which has to be considered. But first the server has to be stopped.
+
+\begin{lstlisting}
+cd /boot
+./ntripstop.sh
+\end{lstlisting}
+
+The input and output streams can be changed in the str2str.sh file
+
+\begin{lstlisting}
+sudo nano str2str.sh
+\end{lstlisting}
+
+The following line configures the the server. To change this configuration the documentation of RTKLIB should be read (section STR2STR). With the '-in' option the input is configured and with the '-out' option the output.
+
+\begin{lstlisting}
+str2str -in serial://ttyACM0:38400:8:n:1:off -out ntrips://:GinTonic+2019@localhost:2101/STALL
+\end{lstlisting}
+
+The credentials for the NTRIP caster are defined in the ntripcaster.conf file.
+
+\begin{lstlisting}
+sudo nano ntripcaster.conf
+\end{lstlisting}
+
+The password, the username and the mountpoint are defined at the end of the document. \cite{RTKLIBDoc}
+There are two accounts defined. The account generated for this project has the username HSR and the password GinTonic+2019.
+
+\begin{lstlisting}
+/STALL:gast:gast,HSR:GinTonic+2019
+\end{lstlisting}
+
+To start the server again the following command can be used. \cite{NTRIPMan}
+
+\begin{lstlisting}
+./ntripstart.sh
+\end{lstlisting}
+
+\section{Firmware}
+All relevant changes can be done in the main.py.
+\subsection{Charging Station}
+The main.py of the charging station looks as this:
+\begin{lstlisting}[language=Python]
+bSeries = [35 ,3, [47.223876167, 8.817866833]]
+cSeries = ['192.168.1.89', '04340312ff3885 00000000000000000000', [47.223861167, 8.8178905]]
+	
+fsm = FSM(ipV4AddressRSU='192.168.1.82',
+	  ipV4AddressLocalhost='192.168.1.85',
+	  ITGeoNetworkingLocal5Address ='0x04e548000011',
+	  encryptionKey=b'pyXWJRqd0Bi6KGhP508oBoK_ESp0ijh1d2rn37QG_CE=',
+	  authenticationKeyList=['8708', '1258', '7845'],
+	  positionChargingStation=[47.223847, 8.817973],
+	  bSeries=bSeries,
+	  cSeries=cSeries)		
+\end{lstlisting}
+
+To add b-series charging device the list bSeries is used. The order of the arguments is as following:
+\begin{lstlisting}
+[inputPin[1] ,outputPin[1], position[1], inputPin[2] ,outputPin[2], position[2], ..., inputPin[n] ,outputPin[n], position[n]]
+\end{lstlisting}
+InputPin and outputPin refers to the pin number of the GPIOs from the Raspberry Pi. Position are the GNSS coordinates of the parking lot assigned to the parking device.
+
+To add c-series charging device the list cSeries is used. The order of the arguments are as following:
+\begin{lstlisting}
+[address[1] ,unlockID[1], position[1], address[2] ,unlockID[2], position[2], ..., address[n] ,unlockID[n], position[n]]
+\end{lstlisting}
+
+In the address field, the IP address of the charging device is needed. The unlock ID is the RFID number to unlock the charging device. For more information about the charging device consult \cite{KEBAP30_UDP_Programmers_Guide}
+
+The constructor of the FSM sets up the whole system. The required parameters are following:
+
+\begin{tabular}{|l|l|}
+	\hline 
+	\texttt{ipV4AddressRSU} & \texttt{IPv4 address uf the MK5 RSU} \\
+	\hline  
+	\texttt{ipV4AddressLocalhost} & \texttt{IPv4 address of the machine the program is running} \\ 
+	\hline 
+	\texttt{ITGeoNetworkingLocal5Address} & \texttt{Last 6 bytes of the GeoNetworking address as} \\
+										  &	\texttt{Hex string} \\ 
+	\hline 
+	\texttt{encryptionKey}  & \texttt{Key of the symmetric encryption.} \\ 
+							& \texttt{Must be the same as the one in the electric vehicle} \\ 
+	\hline 
+	\texttt{authenticationKeyList} & \texttt{List of all vehicle ID's that are allowed} \\
+								   & \texttt{to charge at the charging station} \\ 
+	\hline 
+	\texttt{positionChargingStation} & \texttt{Position of the parking station} \\ 
+	\hline 
+	\texttt{provider} & \texttt{Provider name of the charging station} \\ 
+	\hline 
+	\texttt{bSeries} & \texttt{List of the b-series charging devices} \\ 
+	\hline 
+	\texttt{cSeries} & \texttt{List of the c-series charging devices} \\ 
+	\hline 
+\end{tabular}
+
+
+\subsection{Electric Vehicle}
+
+To set up the whole system the constructor of the FSM is used.
+\begin{lstlisting}[language=Python]
+fsm = FSM(ipV4AddressOBU='192.168.1.83',
+	  ipV4AddressLocalhost = '192.168.1.86',
+	  ITGeoNetworkingLocal5Address='0x04e548000010',
+	  authenticationKey='8708',
+	  encryptionKey=b'pyXWJRqd0Bi6KGhP508oBoK_ESp0ijh1d2rn37QG_CE=',
+	  providerList=['HSR'])
+\end{lstlisting}
+
+
+\begin{tabular}{|l|l|}
+	\hline 
+	\texttt{ipV4AddressOBU} & \texttt{IPv4 address uf the MK5 OBU} \\
+	\hline  
+	\texttt{ipV4AddressLocalhost} & \texttt{IPv4 address of the machine the program is running} \\ 
+	\hline 
+	\texttt{ITGeoNetworkingLocal5Address} & \texttt{Last 6 bytes of the GeoNetworking address as} \\
+	&	\texttt{Hex string} \\ 
+	\hline 
+	\texttt{authenticationKey} & \texttt{vehicle ID for authentication by the charging station} \\
+	\hline
+	\texttt{encryptionKey}  & \texttt{Key of the symmetric encryption.} \\ 
+	& \texttt{Must be the same as the one in the electric vehicle} \\ 
+	\hline 
+	\texttt{providerList} & \texttt{List of provider that support the charging process} \\ 
+	\hline 
+\end{tabular}
+
+\clearpage
+\pagebreak

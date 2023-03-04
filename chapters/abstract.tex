@@ -1,0 +1,28 @@
+\begin{abstract}
+	
+	\subsubsection{Inital Situation}
+	
+	In the future, the market share of electric vehicles will further increase and therefore the needs for charging possibilities will rise as well. There are a lot of different solutions from different companies these days. Today, there are several authentication solutions, which are not compatible with each other. The goal of this thesis is to develop a system for autonomous wireless authentication at charging stations. With this approach, no interaction by the driver is needed.
+	
+	In the future, wireless charging solutions will appear on the market. Then authentication and paying methods will have to be fully autonomous and wireless too.
+	
+	\subsubsection{Approach}
+	% Normen
+	There are several existing standards about communication between vehicles (V2X), which had to be considered for this thesis. The provided hardware communicates over IEEE 802.11p, an amendment of the WLAN standard optimized for vehicular environment.
+	
+	% Systemaufbau
+	The system consists of two similar modules. One is inside the vehicle with an external antenna, which can be mounted on the vehicle roof, for localization and communication with other cars and infrastructure. The other module is mounted next to a charging station in a waterproof housing including antennas attached to it. The two units facilitate via the communication channel between the charging station and the vehicle. Two Raspberry Pi units control the system on each side and communicate over the V2X communication channel.
+	
+	% Systemablauf
+	Initially, both units try to detect each other. After a connection is established and the vehicle is in the parking area, the authentication process starts. If it succeeds, the vehicle can be parked in a parking lot and the associated charging port will be activated.
+		
+	% RTK
+	To determine the position, the stand-alone GNSS module does not have the precision to detect a single parking lot, if there are several next to each other. A more precise solution has to be developed. With a differential GNSS system a single parking lot can be detected.
+	
+	\subsubsection{Conclusion}
+	This thesis shows an autonomous authentication system for parking areas with several lots. The vehicle can be located within a few centimeters and therefore the right parking lot can be determined.
+	
+	The communication occurs via Basic Transport Protocol, which is a part of the European Intelligent Transport System. This wireless authentication system can also be used in private garage entries or restricted parking areas. 
+
+\end{abstract}
+

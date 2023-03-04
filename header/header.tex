@@ -1,0 +1,98 @@
+%% We use the memoir class because it offers a many easy to use features.
+\documentclass[11pt,a4paper,titlepage]{memoir}
+
+%% Packages
+%% ========
+
+%% Input encoding 'utf8'. In some cases you might need 'utf8x' for
+%% extra symbols. Not all editors, especially on Windows, are UTF-8
+%% capable, so you may want to use 'latin1' instead.
+\usepackage[utf8]{inputenc}
+
+%% Babel provides support for languages.  'english' uses British
+%% English hyphenation and text snippets like "Figure" and
+%% "Theorem". Use the option 'ngerman' if your document is in German.
+%% Use 'american' for American English.  Note that if you change this,
+%% the next LaTeX run may show spurious errors.  Simply run it again.
+%% If they persist, remove the .aux file and try again.
+\usepackage[english]{babel}
+%\selectlanguage{ngerman}
+
+%% LaTeX Font encoding -- DO NOT CHANGE
+\usepackage[T1]{fontenc}
+
+%%% Geometry of pages
+%\usepackage[{left=1.5cm,right=1.5cm,top=0cm,bottom=0cm}]{geometry} % Seitenränder
+
+%% This changes default fonts for both text and math mode to use Herman Zapfs
+%% excellent Palatino font.  Do not change this.
+\usepackage[sc]{mathpazo}
+
+%% The AMS-LaTeX extensions for mathematical typesetting.  Do not
+%% remove.
+\usepackage{amsmath,amssymb,amsfonts,mathrsfs}
+
+%% NTheorem is a reimplementation of the AMS Theorem package. This
+%% will allow us to typeset theorems like examples, proofs and
+%% similar.  Do not remove.
+%% NOTE: Must be loaded AFTER amsmath, or the \qed placement will
+%% break
+\usepackage[amsmath,thmmarks]{ntheorem}
+%\usepackage{mathtools}
+
+%% LaTeX' own graphics handling
+\usepackage{graphicx}
+
+%% We unfortunately need this for the Rules chapter.  Remove it
+%% afterwards; or at least NEVER use its underlining features.
+%\usepackage{soul}
+
+%% This allows you to add .pdf files. It is used to add the
+%% declaration of originality.
+\usepackage{pdfpages}
+
+\usepackage{pageslts}
+\usepackage[chapter]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{lscape}
+\usepackage{multicol}
+%\selectlanguage{ngerman}
+
+%% Some more packages that you may want to use.  Have a look at the
+%% file, and consult the package docs for each.
+\input{header/extrapackages}
+
+%% Our layout configuration.  DO NOT CHANGE.
+\input{header/layoutsetup}
+
+%% Theorem environments.  You will have to adapt this for a German
+%% thesis.
+\input{header/theoremsetup}
+
+%% Helpful macros.
+\input{header/macrosetup}
+
+%% Make document internal hyperlinks wherever possible. (TOC, references)
+%% This MUST be loaded after varioref, which is loaded in 'extrapackages'
+%% above.  We just load it last to be safe.
+\usepackage[linkcolor=black,colorlinks=true,citecolor=black,filecolor=black]{hyperref}
+\usepackage{memhfixc}
+\usepackage{subcaption}
+
+
+\usepackage[hyperref=true,backend=biber,style=ieee,defernumbers=true]{biblatex}
+%\usepackage[backend=biber]{biblatex}
+\addbibresource{references.bib}
+%\bibliography{refs}
+
+\hypersetup{
+     colorlinks   = false
+}
+
+%% Document information
+%% ====================
+
+\input{header/docsetup}
+
+\renewcommand{\arraystretch}{1.3}
+

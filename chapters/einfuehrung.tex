@@ -1,0 +1,65 @@
+\selectlanguage{english}
+\chapter{Introduction}
+The market share of electric vehicles will increase in the future. As a result, the demand for charging stations will rise. At the moment, there are many RFID card based solutions, which are not compatible with each other. In some instances the communication happens through the charging port. In the future, more vehicles can charge their batteries wirelessly. This will work in a stationary state or even while moving. So none of the authentication processes mentioned above will be of any use. Therefore, a wireless solution is needed.\cite{Aufgabenstellung}
+
+The technology for wireless communication between multiple road users is called Vehicle-to-Anything (V2X). Which includes Vehicle-to-Vehicle (V2V), Vehicle-to-Pedestrians (V2P) and Vehicle-to-Infrastructure (V2I). The last of which allows communications between traffic signs, -lights, barriers and charging stations. V2X communication systems will be needed to build an intelligent transport system (ITS). A system as this has a lot of advantages, for example better safety and efficiency on the road. Because there are advances in autonomous vehicle technology, V2X has started to gain traction with the two leading standards C-V2X and 802.11p. In this thesis the 802.11p standard is used for the communication between the charging station and the vehicle. 
+\cite{IEEE802.11p}
+
+\section{Goal of the Thesis}
+
+A wireless authentication system, for the charging station at HSR and the ICOM Wireless Research Vehicle, has to be developed and implemented. This has to be achieved by using hardware by Cohda Wireless. In the final product, the charging station should enable the charging port automatically, when the Wireless Research Vehicle parks next to the charging station. In the future, the system can be integrated into autonomous cars, which have the given hardware built in. Additionally, it can be used for bigger charging stations with more stalls or for a barrier at parking garages. The Task can be found in the appendix.(\ref{sec:task})
+
+\section{Task Analysis}
+
+Since this technology is new, the available hardware is limited. There is currently only one manufacturer, who was able to deliver the needed hardware on time. The authentication process must be fully autonomous, so that no user interaction is necessary. To make this system work, the electric vehicle and the charging station must establish a connection as soon as they are close enough. One way to make this work is with broadcast messages. These messages are sent to all clients in range of the transmitter. After a successful handshake, the devices communicate with unicast.
+If a charging station has more than one charging device, it is necessary that the vehicle can determine its position with the needed accuracy to distinguish between multiple parking lots. In open parking areas with clear sight, the position of the vehicle can be determined with GNSS. The disadvantage of a satellite supported solution is, that as soon as the vehicle loses sight to the sky, a positioning is impossible. To be able to locate vehicles in buildings, the signal strength of the wireless communication can be used. The received signal strength is dependent on the distance between the receiver and the transmitter. With this distance, the position can be estimated.\cite{RSSI}
+
+\section{Definitions}
+\subsection*{Charging Station}
+Within the scope of this thesis, a charging station is defined as an area with one or more parking spaces, which are equipped with a device to charge electric vehicles.
+\subsection*{Charging Device}
+The charging device includes only the device which charges a single car at a time. In this thesis the charging devices are produced by KEBA and called KeContact P30. \ref{sec:chargingDevices}
+\subsection*{Roadside Unit and Onboard Unit}
+The terms Roadside Unit (RSU) and Onboard Unit (OBU) refer to the MK5 from Cohda Wireless.
+
+
+\clearpage
+\pagebreak
+\section{Abbreviations}
+%\addcontentsline{toc}{chapter}{Abkürzungen}
+%Abkürzungsverzeichniss, für schön ausrichten längste Abkürzung in eckige Klammer
+\vspace{0.1cm}
+\begin{acronym}[OOOOO]
+	\acro{BTP}{Basic Transport Portocol}
+	\acro{CAM}{Cooparative Awareness Message}
+	\acro{CAN}{Controller Area Network}
+	\acro{CAV}{Connected Autonomous Vehicle}
+	\acro{C-ITS}{Cooperative Intelligent Transport System}
+	\acro{C-V2X}{Cellular Vehile to Everything}
+	\acro{DSRC}{Dedicated Short Range Communication}
+	\acro{ETSI}{European Telecommunications Standards Institute}	
+	\acro{EV}{Electric Vehilce}
+	\acro{FSM}{Finite State Machine}
+	\acro{GNSS}{Global Navigation Satellite System}
+	\acro{GPIO}{General Purpose Input or Output}
+	\acro{IEEE}{Institute of Electrical and Electronics Engineers}
+	\acro{IP}{Internet Protocol}
+	\acro{ITS}{Intelligent Transport System}
+	\acro{MAC}{Media Access Control}
+	\acro{NTRIP}{Network Transport of RTCM via Internet Protocol}
+	\acro{OBU}{Onboard Unit}
+	\acro{PHY}{Physical Layer}
+	\acro{RF}{Radio Frequency}
+	\acro{RFID}{Radio Frequency Identification}
+	\acro{RSU}{Roadside Unit}
+	\acro{RTCM}{Radio Technical Commission for Maritime Services}
+	\acro{RTK}{Real Time Kinematic}
+	\acro{RTKLIB}{Real Time Kinematic Library}
+	\acro{TCP}{Transmission Control Protocol}
+	\acro{UDP}{User Datagram Protocol}
+	\acro{VPN}{Virtual Private Network}
+	\acro{V2X}{Vehile to Everything}
+	\acro{WAVE}{Wireless Access for Vehicular Environment}
+\end{acronym}	
+\clearpage
+\pagebreak
